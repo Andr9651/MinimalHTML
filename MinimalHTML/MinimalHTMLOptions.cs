@@ -1,10 +1,12 @@
+namespace MinimalWebsite.MinimalHTML;
+
 public class MinimalHTMLOptions
 {
-    public SearchOption searchOption { get; set; } = SearchOption.AllDirectories;
+    public SearchOption SearchOption { get; set; } = SearchOption.AllDirectories;
 
-    public string fileExtension { get; set; } = "html";
+    public string FileExtension { get; set; } = "html";
 
-    public string webRootPath { get; set; } = "";
+    public string WebRootPath { get; set; } = "";
 
-    public string[] blacklist { get; set; } = {};
+    public string[] Blacklist { get; set; } = { };
 }

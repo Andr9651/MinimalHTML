@@ -22,7 +22,7 @@ if (app.Environment.IsDevelopment())
 //app.UseStaticFiles();
 
 app.MapMinimalHTML();
-app.MapMinimalHTML(new MinimalHTMLOptions{fileExtension="mp3"});
+app.MapMinimalHTML(new MinimalHTMLOptions{FileExtension="mp3"});
 
 app.Run();
 

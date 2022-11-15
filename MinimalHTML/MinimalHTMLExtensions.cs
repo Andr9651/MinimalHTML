@@ -1,5 +1,8 @@
-﻿namespace MinimalHTML;
-using Microsoft.AspNetCore.StaticFiles;
+﻿using Microsoft.AspNetCore.StaticFiles;
+using MinimalWebsite.MinimalHTML;
+
+namespace MinimalHTML;
+
 public static class MinimalHTMLExtensions
 {
 
@@ -9,22 +12,22 @@ public static class MinimalHTMLExtensions
         {
             new MinimalHTMLOptions
             {
-                searchOption = SearchOption.AllDirectories,
-                fileExtension = "css",
-                blacklist = new[] { "node_modules/" }
+                SearchOption = SearchOption.AllDirectories,
+                FileExtension = "css",
+                Blacklist = new[] { "node_modules/" }
             },
 
             new MinimalHTMLOptions
             {
-                searchOption = SearchOption.AllDirectories,
-                fileExtension = "js",
-                webRootPath = "node_modules/flowbite/dist/"
+                SearchOption = SearchOption.AllDirectories,
+                FileExtension = "js",
+                WebRootPath = "node_modules/flowbite/dist/"
             },
 
             new MinimalHTMLOptions
             {
-                searchOption = SearchOption.AllDirectories,
-                fileExtension = "html"
+                SearchOption = SearchOption.AllDirectories,
+                FileExtension = "html"
             }
         };
 
@@ -39,21 +42,21 @@ public static class MinimalHTMLExtensions
         {
             var searchPath = webApp.Environment.WebRootPath;
 
-            if (!string.IsNullOrWhiteSpace(option.webRootPath))
+            if (!string.IsNullOrWhiteSpace(option.WebRootPath))
             {
-                searchPath = Path.Combine(searchPath, option.webRootPath);
+                searchPath = Path.Combine(searchPath, option.WebRootPath);
             }
 
-            var names = Directory.EnumerateFiles(searchPath, "*." + option.fileExtension, option.searchOption);
+            var names = Directory.EnumerateFiles(searchPath, "*." + option.FileExtension, option.SearchOption);
 
             names = names.Select((s) => s.Replace("\\", "/"));
 
             foreach (string path in names)
             {
-                if (option.blacklist.ToList().Find(s => path.Contains(s)) is not null) continue;
+                if (option.Blacklist.ToList().Find(s => path.Contains(s)) is not null) continue;
 
                 var apiUri = Path.GetRelativePath(webApp.Environment.WebRootPath, path);
-                apiUri = apiUri.Replace($".{option.fileExtension}", "");
+                apiUri = apiUri.Replace($".{option.FileExtension}", "");
                 apiUri = apiUri.Replace("\\", "/");
 
 
