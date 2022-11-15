@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.StaticFiles;
-using MinimalWebsite.MinimalHTML;
+using MinimalHTML;
 
 namespace MinimalHTML;
 

@@ -1,4 +1,4 @@
-namespace MinimalWebsite.MinimalHTML;
+namespace MinimalHTML;
 
 public class MinimalHTMLOptions
 {
