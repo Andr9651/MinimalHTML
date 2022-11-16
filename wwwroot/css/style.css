@@ -1,0 +1,33 @@
+body {
+    background-color: slategray;
+    margin: 0;
+}
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hidden-text {
+    color: crimson;
+}
+
+.bubble {
+    position: fixed;
+    background: radial-gradient(transparent 40%, cyan 100%);
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    border: 0px;
+    z-index: 1;
+    animation: floatUp 4s ease-in;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(-100vh);
+    }
+}
