@@ -15,7 +15,29 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapMinimalHTML();
-app.MapMinimalHTML(new MinimalHTMLOptions{FileExtension="mp3"});
+MinimalHTMLOptions[] options = new[]
+{
+    new MinimalHTMLOptions
+    {
+        SearchOption = SearchOption.AllDirectories,
+        FileExtension = "css"
+    },
+
+    new MinimalHTMLOptions
+    {
+        SearchOption = SearchOption.AllDirectories,
+        FileExtension = "js"
+    },
+
+    new MinimalHTMLOptions
+    {
+        SearchOption = SearchOption.AllDirectories,
+        Blacklist = new[] {"hidden"},
+        HideFileExtenstionInURL = true,
+        FileExtension = "html"
+    }
+};
+
+app.MapMinimalHTML(options);
 
 app.Run();

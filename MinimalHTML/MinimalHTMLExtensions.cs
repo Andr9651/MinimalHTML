@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.StaticFiles;
-using MinimalHTML;
 
 namespace MinimalHTML;
 
 public static class MinimalHTMLExtensions
 {
-
     public static void MapMinimalHTML(this WebApplication webApp)
     {
         var options = new List<MinimalHTMLOptions>
@@ -13,15 +11,13 @@ public static class MinimalHTMLExtensions
             new MinimalHTMLOptions
             {
                 SearchOption = SearchOption.AllDirectories,
-                FileExtension = "css",
-                Blacklist = new[] { "node_modules/" }
+                FileExtension = "css"
             },
 
             new MinimalHTMLOptions
             {
                 SearchOption = SearchOption.AllDirectories,
-                FileExtension = "js",
-                WebRootPath = "node_modules/flowbite/dist/"
+                FileExtension = "js"
             },
 
             new MinimalHTMLOptions
@@ -36,7 +32,6 @@ public static class MinimalHTMLExtensions
     public static void MapMinimalHTML(this WebApplication webApp, params MinimalHTMLOptions[] options)
     {
         var ContentTypeMapper = new FileExtensionContentTypeProvider();
-
 
         foreach (var option in options)
         {
@@ -56,22 +51,25 @@ public static class MinimalHTMLExtensions
                 if (option.Blacklist.ToList().Find(s => path.Contains(s)) is not null) continue;
 
                 var apiUri = Path.GetRelativePath(webApp.Environment.WebRootPath, path);
-                apiUri = apiUri.Replace($".{option.FileExtension}", "");
-                apiUri = apiUri.Replace("\\", "/");
 
+                if (option.HideFileExtenstionInURL)
+                {
+                    apiUri = apiUri.Replace($".{option.FileExtension}", "");
+                }
+
+                apiUri = apiUri.Replace("\\", "/");
 
                 webApp.MapGet("/" + apiUri, () =>
                 {
                     string html = File.ReadAllText(path);
 
-                    if (!ContentTypeMapper.TryGetContentType(path, out string contentType))
+                    if (!ContentTypeMapper.TryGetContentType(path, out string? contentType))
                     {
                         contentType = "";
-                    };
+                    }
 
                     return Results.Content(html, contentType);
                 });
-
             }
         }
     }

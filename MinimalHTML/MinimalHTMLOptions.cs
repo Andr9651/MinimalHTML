@@ -8,5 +8,7 @@ public class MinimalHTMLOptions
 
     public string WebRootPath { get; set; } = "";
 
-    public string[] Blacklist { get; set; } = { };
+    public string[] Blacklist { get; set; } = Array.Empty<string>();
+
+    public bool HideFileExtenstionInURL { get; set; } = false;
 }
